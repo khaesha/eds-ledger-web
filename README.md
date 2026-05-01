@@ -1,36 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Edda's Ledger — Frontend
 
-## Getting Started
+A modern, AI-powered personal finance dashboard built with **Next.js 14** (App Router). Track expenses, analyze spending patterns, and get AI-driven financial insights from Edda, your personal finance advisor.
 
-First, run the development server:
+## 🎯 Features
 
+- **Dashboard**: Real-time spending overview with category breakdowns and visual charts
+- **Expense Management**: Log, categorize, and import expenses via CSV
+- **Edda AI Chat**: Conversational financial advisor powered by LLaMA 3.1 via OpenRouter
+- **Monthly Reports**: AI-generated financial analysis with spending score, leak detection, and optimization tips
+- **Dark Theme**: Eye-friendly dark UI optimized for data visualization
+- **Authentication**: JWT-based secure login and session persistence
+
+## 🛠 Tech Stack
+
+- **Framework**: [Next.js 14](https://nextjs.org) (App Router with Server/Client boundaries)
+- **UI**: [React 18](https://react.dev), [Tailwind CSS 3](https://tailwindcss.com)
+- **State Management**: [Zustand v5](https://zustand.docs.pmnd.io) with localStorage persistence
+- **Charts**: [Recharts 3](https://recharts.org)
+- **HTTP Client**: [Axios 1.15](https://axios-http.com) with JWT interceptor
+- **Styling**: Dark theme with custom Tailwind variables
+- **Fonts**: Inter (sans), JetBrains Mono (mono) via `next/font/google`
+
+## 📋 Requirements
+
+- Node.js >= 18
+- npm >= 9 (or yarn/pnpm)
+- Backend API running on `http://localhost:3001`
+
+## 🚀 Getting Started
+
+### 1. Install Dependencies
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cd frontend
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Configure Environment
+Create `.env.local`:
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3001
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Run Development Server
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+### 4. Build for Production
+```bash
+npm run build
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 📁 Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── layout.tsx         # Root layout with fonts & global styles
+│   ├── (auth)/            # Auth route group
+│   │   ├── login/         # Login/register page
+│   │   └── layout.tsx     # Auth layout wrapper
+│   └── (dashboard)/       # Protected dashboard routes
+│       ├── dashboard/     # Spending overview & stats
+│       ├── expenses/      # Expense logging & import
+│       ├── chat/          # Edda AI conversation
+│       ├── report/        # Monthly financial report
+│       └── layout.tsx     # Dashboard with sidebar
+├── components/
+│   ├── edward/            # Edda avatar character component
+│   ├── layout/            # Sidebar navigation
+│   └── ui/                # Reusable UI primitives (Button, Card, Input, etc.)
+├── lib/
+│   └── api.ts             # Axios instance & API clients
+├── store/
+│   ├── authStore.ts       # Zustand auth state with persistence
+│   └── expenseStore.ts    # Zustand expense state
+├── types/
+│   └── index.ts           # TypeScript interfaces
+└── globals.css            # Tailwind directives & dark theme
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔐 Authentication Flow
 
-## Deploy on Vercel
+1. User logs in at `/login` with email & password
+2. Backend returns JWT token
+3. Token stored in httpOnly cookie via `setToken()`
+4. Zustand store persists user data to localStorage
+5. All API requests include JWT in `Authorization: Bearer {token}` header
+6. 401 responses trigger automatic logout & redirect to `/login`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📡 API Clients
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+All API calls routed through `src/lib/api.ts`:
+
+```typescript
+authApi.login(email, password)
+authApi.register(name, email, password)
+expensesApi.list()
+expensesApi.create(expense)
+expensesApi.importCsv(file)
+reportsApi.get(year, month)
+reportsApi.generate(year, month)
+chatApi.ask(message)
+```
+
+## 🎨 Customization
+
+### Theme Colors
+Edit `tailwind.config.ts`:
+- `bg-edward-navy`: Primary background
+- `bg-edward-navy2`: Secondary background
+- `bg-edward-amber`: Accent color
+- `text-edward-muted`: Muted text
+
+### Fonts
+Modify `app/layout.tsx` to add/change Google Fonts.
+
+## 🧪 Development
+
+- **Hot Reload**: Changes auto-refresh the browser
+- **Type Checking**: `npx tsc --noEmit`
+- **Linting**: `npm run lint`
+
+## 🔗 Related
+
+- [Backend API](../backend/README.md)
+- [Supabase Setup](../SUPABASE_SETUP.md)
+- [Project Plan](../eds-ledger-project-plan.md)
