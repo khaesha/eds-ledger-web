@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { @apply bg-edward-navy text-white; }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #1F2937; }
+  ::-webkit-scrollbar-thumb { background: #F59E0B; border-radius: 3px; }
+}
+
+@layer components {
+  /* Reusable card */
+  .ed-card {
+    @apply bg-edward-navy2 rounded-xl p-5 border border-white/5;
+  }
+
+  /* Primary button */
+  .ed-btn {
+    @apply bg-edward-amber text-edward-navy font-bold px-4 py-2
+           rounded-lg hover:brightness-110 transition-all;
+  }
+
+  /* Ghost button */
+  .ed-btn-ghost {
+    @apply border border-white/20 text-white px-4 py-2
+           rounded-lg hover:bg-white/5 transition-all;
+  }
+}
