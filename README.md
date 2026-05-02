@@ -130,3 +130,7 @@ Modify `app/layout.tsx` to add/change Google Fonts.
 - [Backend API](../backend/README.md)
 - [Supabase Setup](../SUPABASE_SETUP.md)
 - [Project Plan](../eds-ledger-project-plan.md)
+
+## 📄 License
+
+MIT © 2026 Khalifa Esha
