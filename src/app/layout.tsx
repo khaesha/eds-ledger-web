@@ -7,6 +7,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: "Ed's Ledger",
   description: 'AI Finance Tracker powered by Edda',
+  icons: {
+    icon: '/edward-1.png',
+  },
 };
 
 export default function RootLayout({
