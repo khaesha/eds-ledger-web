@@ -22,10 +22,4 @@
     @apply bg-edward-amber text-edward-navy font-bold px-4 py-2
            rounded-lg hover:brightness-110 transition-all;
   }
-
-  /* Ghost button */
-  .ed-btn-ghost {
-    @apply border border-white/20 text-white px-4 py-2
-           rounded-lg hover:bg-white/5 transition-all;
-  }
 }
